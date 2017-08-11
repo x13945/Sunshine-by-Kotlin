@@ -30,6 +30,7 @@ dependencies {
     implementation "org.jetbrains.anko:anko-common:$anko_version"
     implementation "com.android.support:appcompat-v7:$support_library_version"
     implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
+    implementation "com.android.support:recyclerview-v7:$support_library_version"
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "com.android.support.test:runner:$runner_version"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_core_version"
