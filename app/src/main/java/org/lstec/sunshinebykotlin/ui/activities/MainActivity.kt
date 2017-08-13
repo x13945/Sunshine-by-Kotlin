@@ -1,9 +1,15 @@
-package org.lstec.sunshinebykotlin
+package org.lstec.sunshinebykotlin.ui.activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.longToast
+import org.jetbrains.anko.uiThread
+import org.lstec.sunshinebykotlin.ui.adapters.ForecastListAdapter
+import org.lstec.sunshinebykotlin.R
+import org.lstec.sunshinebykotlin.data.Request
 
 class MainActivity : AppCompatActivity() {
     private val items = listOf(
@@ -22,5 +28,17 @@ class MainActivity : AppCompatActivity() {
         val forecastList = findViewById(R.id.forecast_list) as RecyclerView
         forecastList.layoutManager = LinearLayoutManager(this)
         forecastList.adapter = ForecastListAdapter(items)
+
+
+        val url = "http://api.openweathermap.org/data/2.5/forecast/daily?" +
+                "APPID=15646a06818f61f7b8d7823ca833e1ce&q=94043&mode=json&units=metric&cnt=7"
+
+        doAsync {
+            Request(url).run()
+            uiThread {
+                longToast("Request performed.")
+            }
+        }
     }
 }
+
