@@ -10,7 +10,6 @@ import org.jetbrains.anko.uiThread
 import org.lstec.sunshinebykotlin.ui.adapters.ForecastListAdapter
 import org.lstec.sunshinebykotlin.R
 import org.lstec.sunshinebykotlin.domain.command.RequestForecastCommand
-import org.lstec.sunshinebykotlin.domain.model.Forecast
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,13 +22,7 @@ class MainActivity : AppCompatActivity() {
         doAsync {
             val result = RequestForecastCommand("94043").execute()
             uiThread {
-                forecastList.adapter = ForecastListAdapter(result,
-                        object : ForecastListAdapter.OnItemClickListener {
-                            override fun invoke(forecast: Forecast) {
-                                toast(forecast.date)
-                            }
-
-                        })
+                forecastList.adapter = ForecastListAdapter(result) { toast(it.date) }
             }
         }
     }
