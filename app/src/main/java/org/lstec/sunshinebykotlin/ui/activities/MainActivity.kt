@@ -9,34 +9,20 @@ import org.jetbrains.anko.longToast
 import org.jetbrains.anko.uiThread
 import org.lstec.sunshinebykotlin.ui.adapters.ForecastListAdapter
 import org.lstec.sunshinebykotlin.R
-import org.lstec.sunshinebykotlin.data.Request
+import org.lstec.sunshinebykotlin.domain.command.RequestForecastCommand
 
 class MainActivity : AppCompatActivity() {
-    private val items = listOf(
-            "Mon 6/23 - Sunny - 31/17",
-            "Tue 6/24 - Foggy - 21/8",
-            "Wed 6/25 - Cloudy - 22/17",
-            "Thurs 6/26 - Rainy - 18/11",
-            "Fri 6/27 - Foggy - 21/10",
-            "Sat 6/28 - TRAPPED IN WEATHERSTATION - 23/18",
-            "Sun 6/29 - Sunny - 20/7"
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val forecastList = findViewById(R.id.forecast_list) as RecyclerView
         forecastList.layoutManager = LinearLayoutManager(this)
-        forecastList.adapter = ForecastListAdapter(items)
-
-
-        val url = "http://api.openweathermap.org/data/2.5/forecast/daily?" +
-                "APPID=15646a06818f61f7b8d7823ca833e1ce&q=94043&mode=json&units=metric&cnt=7"
 
         doAsync {
-            Request(url).run()
+            val result = RequestForecastCommand("94043").execute()
             uiThread {
-                longToast("Request performed.")
+                forecastList.adapter = ForecastListAdapter(result)
             }
         }
     }
