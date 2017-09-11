@@ -8,8 +8,10 @@ import com.squareup.picasso.Picasso
 import org.lstec.sunshinebykotlin.R
 import org.lstec.sunshinebykotlin.domain.model.Forecast
 import org.lstec.sunshinebykotlin.domain.model.ForecastList
-import org.lstec.sunshinebykotlin.ui.utils.ctx
+import org.lstec.sunshinebykotlin.extensions.ctx
 import kotlinx.android.synthetic.main.item_forecast.view.*
+import java.text.DateFormat
+import java.util.*
 
 /**
  * Created by shaw on 10/08/2017.
@@ -35,12 +37,17 @@ class ForecastListAdapter(val weekForecast: ForecastList,
                 Picasso.with(itemView.ctx)
                         .load(iconUrl)
                         .into(itemView.icon)
-                itemView.date.text = date
+                itemView.date.text = convertData(date)
                 itemView.description.text = description
                 itemView.maxTemperature.text = "${high}º"
                 itemView.minTemperature.text = "${low}º"
                 itemView.setOnClickListener { itemClick(this) }
             }
+        }
+
+        private fun convertData(date: Long): String {
+            val df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
+            return df.format(date)
         }
     }
 

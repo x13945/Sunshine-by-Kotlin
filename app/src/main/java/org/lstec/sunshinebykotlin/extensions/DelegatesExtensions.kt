@@ -1,4 +1,4 @@
-package org.lstec.sunshinebykotlin.ui.utils
+package org.lstec.sunshinebykotlin.extensions
 
 import kotlin.reflect.KProperty
 

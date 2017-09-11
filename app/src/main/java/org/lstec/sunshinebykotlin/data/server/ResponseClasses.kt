@@ -1,4 +1,4 @@
-package org.lstec.sunshinebykotlin.data
+package org.lstec.sunshinebykotlin.data.server
 
 data class ForecastResult(
         val city: City,

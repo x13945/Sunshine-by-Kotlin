@@ -1,4 +1,4 @@
-package org.lstec.sunshinebykotlin.ui.utils
+package org.lstec.sunshinebykotlin.extensions
 
 import android.content.Context
 import android.view.View
