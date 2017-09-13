@@ -6,7 +6,7 @@ import org.lstec.sunshinebykotlin.data.server.ForecastResult
 /**
  * Created by shaw on 13/08/2017.
  */
-class ForecastRequest(val zipCode: Long) {
+class ForecastByZipCodeRequest(val zipCode: Long, val gson: Gson = Gson()) {
     companion object {
         private val APP_ID = "15646a06818f61f7b8d7823ca833e1ce"
         private val URL = "http://api.openweathermap.org/data/2.5/" +
@@ -16,6 +16,6 @@ class ForecastRequest(val zipCode: Long) {
 
     fun execute() : ForecastResult {
         val forecastJsonStr = java.net.URL(COMPLETE_URL + zipCode).readText()
-        return Gson().fromJson(forecastJsonStr, ForecastResult::class.java)
+        return gson.fromJson(forecastJsonStr, ForecastResult::class.java)
     }
 }

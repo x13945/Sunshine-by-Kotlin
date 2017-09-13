@@ -1,7 +1,5 @@
-package org.lstec.sunshinebykotlin.mapper
+package org.lstec.sunshinebykotlin.data.server
 
-import org.lstec.sunshinebykotlin.data.server.Forecast
-import org.lstec.sunshinebykotlin.data.server.ForecastResult
 import org.lstec.sunshinebykotlin.domain.model.ForecastList
 import org.lstec.sunshinebykotlin.domain.model.Forecast as ModelForecast
 import java.text.DateFormat
@@ -11,8 +9,8 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by shaw on 13/08/2017.
  */
-class ForecastDataMapper {
-    fun convertFromDataModel(zipCode: Long, forecast: ForecastResult) = with(forecast){
+class ServerDataMapper {
+    fun convertToDomain(zipCode: Long, forecast: ForecastResult) = with(forecast){
         ForecastList(zipCode, city.name, city.country, convertForecastListToDomain(forecast.list))
     }
 
