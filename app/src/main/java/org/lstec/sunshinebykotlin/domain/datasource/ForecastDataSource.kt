@@ -1,5 +1,6 @@
 package org.lstec.sunshinebykotlin.domain.datasource
 
+import org.lstec.sunshinebykotlin.domain.model.Forecast
 import org.lstec.sunshinebykotlin.domain.model.ForecastList
 
 /**
@@ -7,4 +8,6 @@ import org.lstec.sunshinebykotlin.domain.model.ForecastList
  */
 interface ForecastDataSource {
     fun requestForecastByZipCode(zipCode: Long, date: Long): ForecastList?
+
+    fun requestDayForecast(id: Long): Forecast?
 }

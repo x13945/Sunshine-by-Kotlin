@@ -3,7 +3,6 @@ package org.lstec.sunshinebykotlin.domain.datasource
 import org.lstec.sunshinebykotlin.data.db.ForecastDb
 import org.lstec.sunshinebykotlin.data.server.ForecastServer
 import org.lstec.sunshinebykotlin.domain.model.Forecast
-import org.lstec.sunshinebykotlin.domain.model.ForecastList
 import org.lstec.sunshinebykotlin.extensions.firstResult
 
 /**
@@ -15,19 +14,24 @@ class ForecastProvider (val sources: List<ForecastDataSource> = ForecastProvider
         val SOURCES = listOf(ForecastDb(), ForecastServer())
     }
 
-    fun requestByZipCode(zipCode: Long, days: Int): ForecastList
-    = sources.firstResult { requestSource(it, days, zipCode) }
+    fun requestForecast(id: Long): Forecast = requestToSources {
+        it.requestDayForecast(id)
+    }
 
-    private fun requestSource(source: ForecastDataSource, days: Int, zipCode: Long): ForecastList? {
-        val res = source.requestForecastByZipCode(zipCode, todayTimeSpon())
+    fun requestByZipCode(zipCode: Long, days: Int) = requestToSources {
+        val res = it.requestForecastByZipCode(zipCode, todayTimeSpan())
         if (res != null && res.size >= days) {
-            return res
+            res
         } else {
-            return null
+            null
         }
     }
 
-    private fun todayTimeSpon(): Long {
+    private fun <T : Any> requestToSources(f: (ForecastDataSource) -> T?): T = sources.firstResult {
+        f(it)
+    }
+
+    private fun todayTimeSpan(): Long {
         return System.currentTimeMillis() / DAY_IN_MILLIS * DAY_IN_MILLIS
     }
 }

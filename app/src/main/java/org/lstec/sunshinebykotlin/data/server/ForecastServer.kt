@@ -1,6 +1,5 @@
 package org.lstec.sunshinebykotlin.data.server
 
-import org.lstec.sunshinebykotlin.data.db.DbDataMapper
 import org.lstec.sunshinebykotlin.data.db.ForecastDb
 import org.lstec.sunshinebykotlin.domain.datasource.ForecastDataSource
 import org.lstec.sunshinebykotlin.domain.model.ForecastList
@@ -11,6 +10,7 @@ import org.lstec.sunshinebykotlin.domain.model.ForecastList
 
 class ForecastServer(val dataMapper: ServerDataMapper = ServerDataMapper(),
                      val forecastDb: ForecastDb = ForecastDb()) : ForecastDataSource{
+    override fun requestDayForecast(id: Long) = throw UnsupportedOperationException()
 
     override fun requestForecastByZipCode(zipCode: Long, date: Long): ForecastList? {
         val result = ForecastByZipCodeRequest(zipCode).execute()

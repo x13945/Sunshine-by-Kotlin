@@ -4,16 +4,22 @@ import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 import org.lstec.sunshinebykotlin.domain.datasource.ForecastDataSource
 import org.lstec.sunshinebykotlin.domain.model.ForecastList
-import org.lstec.sunshinebykotlin.extensions.clear
-import org.lstec.sunshinebykotlin.extensions.parseList
-import org.lstec.sunshinebykotlin.extensions.parseOpt
-import org.lstec.sunshinebykotlin.extensions.toVarargArray
+import org.lstec.sunshinebykotlin.extensions.*
 
 /**
  * Created by shaw on 11/09/2017.
  */
 class ForecastDb (val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.instance,
                   val dataMapper: DbDataMapper = DbDataMapper()) : ForecastDataSource{
+    override fun requestDayForecast(id: Long) = forecastDbHelper.use {
+        val forecast = select(DayForecastTable.NAME)
+                .byId(id)
+                .parseOpt{
+                    DayForecast(HashMap(it))
+                }
+        if (forecast != null) dataMapper.convertDayToDomain(forecast) else null
+    }
+
     override fun requestForecastByZipCode(zipCode: Long, date: Long) = forecastDbHelper.use {
         val dailyRequest = "${DayForecastTable.CITY_ID} = ? AND ${DayForecastTable.DATE} >= ?"
         val dailyForecast = select(DayForecastTable.NAME)
