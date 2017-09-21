@@ -17,7 +17,9 @@ class ForecastDb (val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.inst
                 .parseOpt{
                     DayForecast(HashMap(it))
                 }
-        if (forecast != null) dataMapper.convertDayToDomain(forecast) else null
+        forecast?.let {
+            dataMapper.convertDayToDomain(forecast)
+        }
     }
 
     override fun requestForecastByZipCode(zipCode: Long, date: Long) = forecastDbHelper.use {
@@ -30,10 +32,8 @@ class ForecastDb (val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.inst
                 .whereSimple("${CityForecastTable.ID} = ?", zipCode.toString())
                 .parseOpt { CityForecast(HashMap(it), dailyForecast) }
 
-        if (city != null) {
+        city?.let {
             dataMapper.convertToDomain(city)
-        } else {
-            null
         }
     }
 
