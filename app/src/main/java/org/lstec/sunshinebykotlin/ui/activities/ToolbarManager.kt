@@ -3,6 +3,7 @@ package org.lstec.sunshinebykotlin.ui.activities
 import android.support.v7.graphics.drawable.DrawerArrowDrawable
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import org.lstec.sunshinebykotlin.R
 import org.lstec.sunshinebykotlin.extensions.ctx
@@ -26,7 +27,7 @@ interface ToolbarManager {
         toolbar.inflateMenu(R.menu.menu_main)
         toolbar.setOnMenuItemClickListener {
             when (it.itemId){
-                R.id.action_settings -> App.instance.toast("Settings")
+                R.id.action_settings -> toolbar.ctx.startActivity<SettingsActivity>()
                 else -> App.instance.toast("Unknown option")
             }
             true
