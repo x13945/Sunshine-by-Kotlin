@@ -14,3 +14,15 @@ val View.ctx:Context
 var TextView.textColor: Int
     get() = currentTextColor
     set(value) = setTextColor(value)
+
+fun View.slideExit() {
+    if (translationY == 0f) {
+        animate().translationY(-height.toFloat())
+    }
+}
+
+fun View.slideEnter() {
+    if (translationY > 0) {
+        animate().translationY(0f)
+    }
+}

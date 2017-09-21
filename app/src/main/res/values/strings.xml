@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Sunshine by Kotlin</string>
+    <string name="settings">Settings</string>
 </resources>
