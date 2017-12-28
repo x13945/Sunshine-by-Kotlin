@@ -15,8 +15,8 @@ buildscript {
         junit_version = '4.12'
         runner_version = '0.5'
         // kotlin
-        kotlin_version = "1.1.3-2"
-        anko_version = "0.10.1"
+        kotlin_version = '1.1.2-5'
+        anko_version = '0.10.0'
         // rx permission
         rx_permissions = 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
         //rxbinding
@@ -30,13 +30,15 @@ buildscript {
         rx_liferecyclecomponents = "com.trello.rxlifecycle2:rxlifecycle-components:$rx_liferecycle_version"
         butterknife_version = '8.0.1'
         dart_version = '2.0.2'
+        gson_version = '2.8.0'
+        picasso_version = '2.5.2'
     }
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-beta2'
+        classpath 'com.android.tools.build:gradle:3.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
